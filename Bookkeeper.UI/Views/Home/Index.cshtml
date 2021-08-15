@@ -1,0 +1,43 @@
+﻿@{
+	ViewData["Title"] = "Home Page";
+}
+@model IEnumerable<Bookkeeper.Logic.Core.Book>
+
+<form asp-controller="Home" asp-action="AddBook" method="post" class="mb-5 d-flex flex-column align-items-start">
+	<label for="name" class="form-label mb-3">Add new book</label>
+	<input type="text" name="name" class="form-control mb-3" placeholder="Book Name">
+	<button class="btn-outline-primary btn">Submit</button>
+</form>
+
+<div>
+	<div class="row">
+		<h5>Books</h5>
+	</div>
+	<div class="row">
+		<div class="col">
+			Id
+		</div>
+		<div class="col">
+			Name
+		</div>
+		<div class="col">
+			Book URL
+		</div>
+	</div>
+	@foreach (var book in Model)
+	{
+		<div class="row">
+			<div class="col">
+				@book.Id
+			</div>
+			<div class="col">
+				@book.Name
+			</div>
+			<div class="col">
+				<a asp-controller="Book" asp-action="Index" asp-route-id="@book.Id">
+					Open
+				</a>
+			</div>
+		</div>
+	}
+</div>

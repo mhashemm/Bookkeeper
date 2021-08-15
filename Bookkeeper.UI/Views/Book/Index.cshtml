@@ -1,0 +1,65 @@
+﻿@{
+	ViewData["Title"] = "Home Page";
+}
+@model Bookkeeper.UI.Models.BookViewModel;
+<div class=" mb-5">
+	<h4>Name: @Model.Book.Name</h4>
+	<h4>Balance: @Model.Book.Balance</h4>
+</div>
+
+<div class="mb-5">
+	<div class="row">
+		<div class="col">
+			<form asp-controller="Book" asp-action="Deposite" asp-route-id="@Model.Book.Id" method="post">
+				<label for="value" class="form-label">Deposite Value</label>
+				<input type="number" min="0" max="999999.99" name="value" class="form-control mb-3">
+				<button class="btn-outline-primary btn">Submit</button>
+			</form>
+		</div>
+		<div class="col">
+			<form asp-controller="Book" asp-action="Withdraw" asp-route-id="@Model.Book.Id" method="post">
+				<label for="value" class="form-label">Withdraw Value</label>
+				<input type="number" min="0" max="999999.99" name="value" class="form-control mb-3">
+				<button class="btn-outline-primary btn">Submit</button>
+			</form>
+		</div>
+	</div>
+</div>
+
+<div class="mb-5">
+	<div class="row">
+		<h5>Events</h5>
+	</div>
+	<div class="row">
+		<div class="col">
+			<strong>
+				Type
+			</strong>
+		</div>
+		<div class="col">
+			<strong>
+				Value
+			</strong>
+		</div>
+		<div class="col">
+			<strong>
+				Occurred
+			</strong>
+		</div>
+	</div>
+	@foreach (var e in Model.TransactionEvents)
+	{
+		<div class="row">
+			<div class="col">
+				@Model.Types[e.Type]
+			</div>
+			<div class="col">
+				@e.Value
+			</div>
+			<div class="col m-lg-auto">
+				<time datetime="@e.Occurred.ToString("u")"></time>
+			</div>
+		</div>
+	}
+</div>
+

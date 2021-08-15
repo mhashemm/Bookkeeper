@@ -1,0 +1,23 @@
+version: "3.8"
+
+services:
+  db:
+    build:
+      dockerfile: Dockerfile.sqlserver
+      context: .
+    container_name: bookkeeper-db
+    environment:
+      SA_PASSWORD: "P@ssW0rd!"
+      ACCEPT_EULA: "Y"
+    ports:
+      - 1433:1433
+
+  ui:
+    build:
+      dockerfile: Bookkeeper.UI/Dockerfile
+      context: .
+    container_name: bookkeeper-ui
+    ports:
+      - 5000:80
+    depends_on:
+      - db
